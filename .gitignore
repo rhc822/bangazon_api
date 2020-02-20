@@ -1,0 +1,4 @@
+db.sqlite3
+bangazonEnv/
+*.pyc
+__pycache__
