@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'bangazon_customer_api.urls'
+ROOT_URLCONF = 'bangazon.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'bangazon_customer_api.wsgi.application'
+WSGI_APPLICATION = 'bangazon.wsgi.application'
 
 
 # Database
