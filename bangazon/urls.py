@@ -14,26 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework import routers
-from bangazon_customer_api.views import Order_Products, Payment_Types, Orders, Product_Types, Products, register_user, login_user
+# from bangazon_customer_api.views import Order_Products, Payment_Types, Orders, Product_Types, Products, register_user, login_user
 from rest_framework.authtoken.views import obtain_auth_token
-from bangazon_customer_api.bangazonAbraAPI.models import *
-from bangazon_customer_api.bangazonAbraAPI.views import *
+# from bangazon_customer_api.models import *
 
-# WTF is this ? routers? 
-router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'orderproducts', OrderProducts, 'orderproduct')
-router.register(r'orders', Orders, 'order')
-router.register(r'products', Products, 'product')
-router.register(r'paymenttypes', PaymentTypes, 'paymenttypes')
-router.register(r'producttypes', ProductTypes, 'producttypes')
+# router = routers.DefaultRouter(trailing_slash=False)
+# router.register(r'orderproducts', OrderProducts, 'orderproduct')
+# router.register(r'orders', Orders, 'order')
+# router.register(r'products', Products, 'product')
+# router.register(r'paymenttypes', PaymentTypes, 'paymenttypes')
+# router.register(r'producttypes', ProductTypes, 'producttypes')
 
 urlpatterns = [
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
     path('admin', admin.site.urls),
-    path('register', register_user),
-    path('login', login_user),
+    # path('register', register_user),
+    # path('login', login_user),
     path('api-token-auth', obtain_auth_token),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework'))
 ]
