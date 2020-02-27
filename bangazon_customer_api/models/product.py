@@ -1,5 +1,5 @@
 from django.db import models
-from .customers import Customer
+from .customer import Customer
 from .product_type import ProductType
 
 class Product(models.Model):
@@ -24,10 +24,9 @@ class Product(models.Model):
         ProductType, on_delete=models.DO_NOTHING, related_name="product_types"
     )
 
-class Meta:
-    ordering = ("-created.at",)
-    verbose_name = ("product")
-    verbose_name_plural = ("products")
+    class Meta:
+        verbose_name = ("product")
+        verbose_name_plural = ("products")
 
-def __str__(self):
-    return f'{self.name} costs ${self.price} user who posted is {self.customer.user.first_name} {self.customer.user.last_name}.'
+    def __str__(self):
+        return f'{self.name} costs ${self.price} user who posted is {self.customer.user.first_name} {self.customer.user.last_name}.'

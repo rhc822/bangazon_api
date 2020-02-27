@@ -1,5 +1,5 @@
 {
     "python.linting.pylintEnabled": true,
-    "python.pythonPath": "bangazonApiEnv\\Scripts\\python.exe",
+    "python.pythonPath": "bangazonApiEnv/bin/python",
     "python.linting.enabled": true
 }

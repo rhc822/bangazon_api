@@ -1,0 +1,16 @@
+[
+    {
+        "model": "bangazon_customer_api.Product",
+        "pk": 1,
+        "fields": {
+            "name": "gun",
+            "price": 100.00,
+            "description": "big un'",
+            "quantity": 1,
+            "location": "Nashville",
+            "created_at": "2020-01-01",
+            "customer": 1,
+            "product_type": 1
+        }
+    }
+]
