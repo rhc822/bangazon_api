@@ -68,10 +68,14 @@ class PaymentTypes(ViewSet):
                 """Handle POST operations
 
                 Returns:
-                    Response -- JSON serialized ParkArea instance
+                    Response -- JSON serialized Payment Type instance
                 """
-                newPaymentType = ParkArea()
-                newPaymentType.name = request.data["name"]
+                newPaymentType = PaymentType()
+                newPaymentType.merchant_name = request.data["merchant_name"]
+                newPaymentType.acct_number = request.data["acct_number"]
+                newPaymentType.expiration_date = request.data["expiration_date"]
+                newPaymentType.customer = request.auth.user.customer
+                newPaymentType.created_at = request.data["created_at"]
                 newPaymentType.save()
 
                 serializer = PaymentTypeSerializer(newPaymentType, context={'request': request})
