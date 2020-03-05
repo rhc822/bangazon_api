@@ -64,50 +64,20 @@ class PaymentTypes(ViewSet):
 
             return Response(serializer.data)
 
-    #     # this is how you handle delete with djanog. Destroy is the word or key for this method
-    #     def destroy(self, request, pk=None):
-    #         """Handle DELETE requests to payment type
+        def create(self, request):
+                """Handle POST operations
 
-    #         Return:
-    #         Response -- JSON serialized detail of deleted payment type
-    #     """
-    #     try:
-    #         paymenttype = PaymentType.objects.get(pk=pk)
-    #         paymenttype.delete()
+                Returns:
+                    Response -- JSON serialized Payment Type instance
+                """
+                newPaymentType = PaymentType()
+                newPaymentType.merchant_name = request.data["merchant_name"]
+                newPaymentType.acct_number = request.data["acct_number"]
+                newPaymentType.expiration_date = request.data["expiration_date"]
+                newPaymentType.customer = request.auth.user.customer
+                newPaymentType.created_at = request.data["created_at"]
+                newPaymentType.save()
 
-    #         return Response({}, status=status.HTTP_204_NO_CONTENT)
+                serializer = PaymentTypeSerializer(newPaymentType, context={'request': request})
 
-    #     except PaymentType.DoesNotExist as ex:
-    #         return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
-
-    #     except Exception as ex:
-    #         return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    #     def update(self, request, pk=None):
-    #         """Handle PUT requests for an individual payment type item
-    #         Returns:
-    #         Response -- Empty body with 204 status code
-    #         """
-    #     paymenttype = PaymentType.objects.get(pk=pk)
-    #     paymenttype.merchant_name = request.data["merchant_name"]
-    #     paymenttype.acct_no = request.data["acct_no"]
-    #     paymenttype.expiration_date = request.data["expiration_date"]
-    #     paymenttype.customer_id = request.auth.user.customer.id
-
-    #     paymenttype.save()
-
-    #     return Response({}, status=status.HTTP_204_NO_CONTENT)
-
-    # # Handles the creation of an object
-    #     def create(self, request):
-    #         new_paymenttype = PaymentType()
-    #         new_paymenttype.merchant_name = request.data["merchant_name"]
-    #         new_paymenttype.acct_no = request.data["acct_no"]
-    #         new_paymenttype.expiration_date = request.data["expiration_date"]
-    #         new_paymenttype.customer_id = request.auth.user.customer.id
-
-    #         new_paymenttype.save()
-
-    #         serializer = PaymentTypeSerializer(new_paymenttype, context={'request': request})
-
-    #         return Response(serializer.data)
+                return Response(serializer.data)
