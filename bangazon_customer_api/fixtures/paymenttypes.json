@@ -1,0 +1,13 @@
+[
+    {
+        "model": "bangazon_customer_api.PaymentType",
+        "pk": 1,
+        "fields": {
+            "merchant_name": "AMEX",
+            "acct_number": 123456789,
+            "expiration_date": "2021-01-01",
+            "created_at": "2020-01-01",
+            "customer_id": 1
+        }
+    }
+]
