@@ -25,7 +25,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 # router.register(r'orderproducts', OrderProducts, 'orderproduct')
 router.register(r'orders', Orders, 'order')
 router.register(r'products', Products, 'product')
-router.register(r'paymenttypes', PaymentTypes, 'paymenttypes')
+router.register(r'paymenttypes', PaymentTypes, 'paymenttype')
 router.register(r'producttypes', ProductTypes, 'producttype')
 
 urlpatterns = [
