@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'bangazon_customer_api'
+    'bangazon_customer_api',
+    'safedelete'
 ]
 
 REST_FRAMEWORK = {

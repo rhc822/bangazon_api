@@ -5,6 +5,7 @@ from rest_framework import serializers
 from rest_framework import status
 from bangazon_customer_api.models import PaymentType, Customer
 
+
 # Required Imports for functionality Above ^ allows use of framework Viewset, Response, Serializers(what changes data type) PaymentType and Customer are Models we created for blueprints later. JB- Comment
 
 # Establishing Class for Payment Type Serializer. Converts Payment Type Data for consumption as JSON.
@@ -81,3 +82,21 @@ class PaymentTypes(ViewSet):
                 serializer = PaymentTypeSerializer(newPaymentType, context={'request': request})
 
                 return Response(serializer.data)
+
+        def destroy(self, request, pk=None):
+                """Handle DELETE requests for a single park area
+
+                Returns:
+                    Response -- 200, 404, or 500 status code
+                """
+                try:
+                    delete_payment_type = PaymentType.objects.get(pk=pk)
+                    delete_payment_type.delete()
+
+                    return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+                except PaymentType.DoesNotExist as ex:
+                    return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+                except Exception as ex:
+                    return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
