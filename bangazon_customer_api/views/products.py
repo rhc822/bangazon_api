@@ -51,3 +51,24 @@ class Products(ViewSet):
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
+
+    def create(self, request):
+        """Handle POST operations
+
+        Returns:
+            Response -- JSON serialized Payment Type instance
+        """
+        newProduct = Product()
+        newProduct.name = request.data["name"]
+        newProduct.price = request.data["price"]
+        newProduct.description = request.data["description"]
+        newProduct.quantity = request.data["quantity"]
+        newProduct.location = request.data["location"]
+        newProduct.created_at = request.data["created_at"]
+        newProduct.customer = request.auth.user.customer
+        newProduct.product_type_id = request.data["product_type_id"]
+        newProduct.save()
+
+        serializer = ProductSerializer(newProduct, context={'request': request})
+
+        return Response(serializer.data)
