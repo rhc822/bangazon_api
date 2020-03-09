@@ -20,7 +20,7 @@ class OrdersSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         fields = ('id', 'created_at', 'customer_id', 'payment_type_id')
-        # depth = 2
+        depth = 2
 
 class Orders(ViewSet):
     """Orders for Bangazon"""
@@ -50,4 +50,38 @@ class Orders(ViewSet):
             many=True,
             context={'request': request}
         )
+        return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single order
+
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            delete_order = Order.objects.get(pk=pk)
+            delete_order.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except PaymentType.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def create(self, request):
+        """Handle POST operations
+
+        Returns:
+            Response -- JSON serialized Payment Type instance
+        """
+        newOrder = Order()
+        newOrder.customer_id = request.auth.user.customer.id
+        newOrder.payment_type_id = request.data["payment_type_id"]
+        newOrder.created_at = request.data["created_at"]
+        newOrder.save()
+
+        serializer = OrdersSerializer(newOrder, context={'request': request})
+
         return Response(serializer.data)

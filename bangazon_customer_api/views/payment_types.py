@@ -84,7 +84,7 @@ class PaymentTypes(ViewSet):
                 return Response(serializer.data)
 
         def destroy(self, request, pk=None):
-                """Handle DELETE requests for a single park area
+                """Handle DELETE requests for a single payment type
 
                 Returns:
                     Response -- 200, 404, or 500 status code
